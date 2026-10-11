@@ -84,6 +84,7 @@ class LogRunViewModel @Inject constructor(
                 runType = RunType.TRAINING_PLAN,
                 activePlanName = activePlan?.name,
                 nextPendingDay = nextDay,
+                // Pre-fill target distance only when starting in training plan mode
                 distanceKm = nextDay?.targetDistanceKm?.toString() ?: "",
             )
         }
@@ -123,7 +124,19 @@ class LogRunViewModel @Inject constructor(
 
     fun onDateChange(date: LocalDate) = _uiState.update { it.copy(date = date) }
 
-    fun onRunTypeChange(type: RunType) = _uiState.update { it.copy(runType = type) }
+    fun onRunTypeChange(type: RunType) {
+        _uiState.update { state ->
+            val newDistance = when {
+                // Switching to training plan: restore the pre-filled target distance
+                type == RunType.TRAINING_PLAN -> state.nextPendingDay?.targetDistanceKm?.toString() ?: ""
+                // Switching away from training plan: clear the pre-filled distance
+                state.runType == RunType.TRAINING_PLAN -> ""
+                // Switching between Race and Casual: keep whatever the user typed
+                else -> state.distanceKm
+            }
+            state.copy(runType = type, distanceKm = newDistance)
+        }
+    }
 
     fun onRaceNameChange(name: String) =
         _uiState.update { it.copy(raceName = name, raceNameError = false) }
