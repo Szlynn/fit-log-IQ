@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import io.github.szlynn.fitlogiq.ui.running.LogRunScreen
+import io.github.szlynn.fitlogiq.ui.running.RunLogScreen
 
 @Composable
 fun FitLogIQNavHost() {
@@ -18,8 +19,7 @@ fun FitLogIQNavHost() {
         startDestination = Screen.RunLog.route,
     ) {
         composable(Screen.RunLog.route) {
-            // TODO: RunLogScreen(navController)
-            Text("Run Log")
+            RunLogScreen(navController)
         }
 
         composable(Screen.LogRun.route) {
