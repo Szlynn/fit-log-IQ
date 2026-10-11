@@ -12,10 +12,10 @@ FitLogIQ is a personal Android fitness tracking app replacing Excel-based workou
 Two workout modules: **Running** and **Calisthenics**.
 
 - Running: training plan tracking (week/day progression), race log, casual runs
-- Calisthenics: bodyweight exercises with sets and reps
+- Calisthenics: bodyweight exercises with sets and reps *(planned)*
 - Stats: totals, personal records, race history
 
-Full functional spec: `plan.md` (in Hungarian)
+Full functional spec: `docs/running-requirements.md`
 
 ## Tech Stack
 
@@ -36,41 +36,40 @@ Flat and simple: **Repository → ViewModel → Composable**
 
 - No separate domain/use-case layer unless complexity clearly demands it
 - No `LiveData` — use `StateFlow` / `SharedFlow`
-- ViewModels expose a single `UiState` sealed class via `StateFlow<UiState>`
+- ViewModels expose a single `UiState` data class via `StateFlow<UiState>`
+- One-time events use `SharedFlow<Event>` with a sealed interface
 - Repositories are the only layer that talks to Room DAOs
 
 ## Project Structure
 
 ```
-app/src/main/
-  java/hu/fitlogiq/
-    data/
-      db/            # RoomDatabase, DAOs
-      model/         # Room @Entity classes (suffix: Entity, e.g. RunEntity)
-      repository/    # Repository classes
-    ui/
-      running/       # Running module: screens + ViewModels
-      calisthenics/  # Calisthenics module: screens + ViewModels
-      stats/         # Stats and race log screens
-      components/    # Shared reusable Composables
-    util/            # Extensions and helpers
-    MainActivity.kt
-    FitLogIQApp.kt   # @HiltAndroidApp Application class
-  res/
-    values/
-      strings.xml    # All Hungarian UI strings go here
+app/src/main/java/io/github/szlynn/fitlogiq/
+  data/
+    db/            # Room database, DAOs, entities, PlanRelations
+    model/         # Enums: RunType, DayStatus
+    repository/    # RunRepository, TrainingPlanRepository
+  di/              # Hilt DatabaseModule
+  ui/
+    components/    # Shared Composables (DurationPickerDialog)
+    navigation/    # Screen, FitLogIQNavHost, TopLevelDestinations
+    running/       # All running module screens and ViewModels
+  util/            # FormatUtils (formatDuration, formatPace)
+  FitLogIQApp.kt   # @HiltAndroidApp
+  MainActivity.kt  # @AndroidEntryPoint
 ```
 
 ## Naming Conventions
 
 | Type | Pattern | Example |
 |------|---------|---------|
-| Screen composable | `<Feature>Screen` | `RunningLogScreen` |
-| ViewModel | `<Feature>ViewModel` | `RunningLogViewModel` |
+| Screen composable | `<Feature>Screen` | `RunLogScreen` |
+| ViewModel | `<Feature>ViewModel` | `RunLogViewModel` |
+| UI state | `<Feature>UiState` | `RunLogUiState` |
+| UI events | `<Feature>Event` | `LogRunEvent` |
 | Room entity | `<Feature>Entity` | `RunEntity` |
 | DAO | `<Feature>Dao` | `RunDao` |
 | Repository | `<Feature>Repository` | `RunRepository` |
-| UI state | `<Feature>UiState` | `RunningLogUiState` |
+| Room relations | descriptive name | `PlanWithWeeksAndDays` |
 
 ## Coding Rules
 
@@ -80,7 +79,7 @@ app/src/main/
 - No direct DAO access from ViewModels — always go through a Repository
 - All Room queries are `suspend fun` or return `Flow`
 - Prefer `data class` for models; keep models immutable
-- Use `sealed interface` for `UiState` and one-time UI events
+- Use `sealed interface` for `UiState` events
 
 ## Code Style
 

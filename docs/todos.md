@@ -9,12 +9,9 @@ Format: `- [ ] description *(file:line if relevant)*`
 
 - [ ] Run type icons in `RunLogScreen` are all placeholder `DateRange` icons. Replace with proper icons for each type (training plan = calendar, race = trophy, casual = shoe). *(RunLogScreen.kt – `RunType.icon`)*
 - [ ] `LogRunScreen`: show a Snackbar on error events (currently `ShowError` event is a no-op TODO). *(LogRunScreen.kt – `LaunchedEffect`)*
-- [ ] `DurationPickerDialog`: Hungarian button labels ("Mégse"). Decide: keep Hungarian for UI strings (consistent with strings.xml policy) or move to `strings.xml`. *(DurationPickerDialog.kt)*
+- [ ] `DurationPickerDialog`: verify scroll selection accuracy on a real device (hard to test on emulator).
 
-## Architecture / Code Quality
+## Features (Planned)
 
-## Features (Deferred)
-
-- [ ] Training Plans screen – not yet implemented.
-- [ ] Stats & Race Log screen – not yet implemented.
-- [ ] Bottom navigation bar – no global nav between modules yet.
+- [ ] Calisthenics module – not yet designed or implemented.
+- [ ] Unit tests – ViewModels not yet covered.
