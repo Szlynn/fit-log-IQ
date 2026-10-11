@@ -1,6 +1,5 @@
 package io.github.szlynn.fitlogiq.ui.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -9,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import io.github.szlynn.fitlogiq.ui.running.LogRunScreen
 import io.github.szlynn.fitlogiq.ui.running.RunLogScreen
+import io.github.szlynn.fitlogiq.ui.running.StatsScreen
 import io.github.szlynn.fitlogiq.ui.running.TrainingPlanDetailScreen
 import io.github.szlynn.fitlogiq.ui.running.TrainingPlanEditorScreen
 import io.github.szlynn.fitlogiq.ui.running.TrainingPlansScreen
@@ -55,8 +55,7 @@ fun FitLogIQNavHost() {
         }
 
         composable(Screen.Stats.route) {
-            // TODO: StatsScreen()
-            Text("Stats")
+            StatsScreen()
         }
     }
 }

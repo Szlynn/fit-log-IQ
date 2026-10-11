@@ -13,8 +13,6 @@ Format: `- [ ] description *(file:line if relevant)*`
 
 ## Architecture / Code Quality
 
-- [ ] `RunLogScreen`: the `Text` import in `FitLogIQNavHost` became unused after wiring up real screens. Clean up unused imports. *(FitLogIQNavHost.kt)*
-
 ## Features (Deferred)
 
 - [ ] Training Plans screen – not yet implemented.
