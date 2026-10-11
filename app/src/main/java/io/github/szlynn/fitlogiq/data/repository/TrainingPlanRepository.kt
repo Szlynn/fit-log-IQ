@@ -1,5 +1,6 @@
 package io.github.szlynn.fitlogiq.data.repository
 
+import io.github.szlynn.fitlogiq.data.db.PlanWithWeeksAndDays
 import io.github.szlynn.fitlogiq.data.db.TrainingPlanDao
 import io.github.szlynn.fitlogiq.data.db.TrainingPlanDayEntity
 import io.github.szlynn.fitlogiq.data.db.TrainingPlanEntity
@@ -14,6 +15,12 @@ class TrainingPlanRepository @Inject constructor(private val dao: TrainingPlanDa
     // --- Plans ---
 
     fun getAllPlans(): Flow<List<TrainingPlanEntity>> = dao.getAllPlans()
+
+    fun getAllPlansWithWeeksAndDays(): Flow<List<PlanWithWeeksAndDays>> =
+        dao.getAllPlansWithWeeksAndDays()
+
+    fun getPlanWithWeeksAndDays(planId: Long): Flow<PlanWithWeeksAndDays?> =
+        dao.getPlanWithWeeksAndDays(planId)
 
     fun getActivePlan(): Flow<TrainingPlanEntity?> = dao.getActivePlan()
 

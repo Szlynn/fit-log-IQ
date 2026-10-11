@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import io.github.szlynn.fitlogiq.data.model.DayStatus
 import kotlinx.coroutines.flow.Flow
@@ -80,4 +81,14 @@ interface TrainingPlanDao {
     /** Resets all days in a week to PENDING (used by "Restart week"). */
     @Query("UPDATE training_plan_days SET status = 'PENDING' WHERE weekId = :weekId")
     suspend fun resetWeekDays(weekId: Long)
+
+    // --- Relations ---
+
+    @Transaction
+    @Query("SELECT * FROM training_plans ORDER BY name ASC")
+    fun getAllPlansWithWeeksAndDays(): Flow<List<PlanWithWeeksAndDays>>
+
+    @Transaction
+    @Query("SELECT * FROM training_plans WHERE id = :planId")
+    fun getPlanWithWeeksAndDays(planId: Long): Flow<PlanWithWeeksAndDays?>
 }

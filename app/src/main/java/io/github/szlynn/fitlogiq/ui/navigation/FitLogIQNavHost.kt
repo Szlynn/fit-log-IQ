@@ -9,6 +9,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import io.github.szlynn.fitlogiq.ui.running.LogRunScreen
 import io.github.szlynn.fitlogiq.ui.running.RunLogScreen
+import io.github.szlynn.fitlogiq.ui.running.TrainingPlanDetailScreen
+import io.github.szlynn.fitlogiq.ui.running.TrainingPlanEditorScreen
+import io.github.szlynn.fitlogiq.ui.running.TrainingPlansScreen
 
 @Composable
 fun FitLogIQNavHost() {
@@ -34,27 +37,21 @@ fun FitLogIQNavHost() {
         }
 
         composable(Screen.TrainingPlans.route) {
-            // TODO: TrainingPlansScreen(navController)
-            Text("Training Plans")
+            TrainingPlansScreen(navController)
         }
 
         composable(
             route = Screen.TrainingPlanDetail.ROUTE,
             arguments = listOf(navArgument(Screen.TrainingPlanDetail.ARG) { type = NavType.LongType }),
-        ) { backStackEntry ->
-            val planId = backStackEntry.arguments?.getLong(Screen.TrainingPlanDetail.ARG) ?: return@composable
-            // TODO: TrainingPlanDetailScreen(navController, planId)
-            Text("Training Plan #$planId")
+        ) {
+            TrainingPlanDetailScreen(navController)
         }
 
         composable(
             route = Screen.TrainingPlanEditor.ROUTE,
             arguments = listOf(navArgument(Screen.TrainingPlanEditor.ARG) { nullable = true }),
-        ) { backStackEntry ->
-            val planId = backStackEntry.arguments?.getString(Screen.TrainingPlanEditor.ARG)
-                ?.toLongOrNull()
-            // TODO: TrainingPlanEditorScreen(navController, planId)
-            Text("Plan Editor (planId=$planId)")
+        ) {
+            TrainingPlanEditorScreen(navController)
         }
 
         composable(Screen.Stats.route) {
