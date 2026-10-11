@@ -52,8 +52,6 @@ app/src/main/java/io/github/szlynn/fitlogiq/
 
 See [`docs/running-requirements.md`](docs/running-requirements.md) for the full Running module spec.
 
-See [`plan.md`](plan.md) (in Hungarian) for the original feature notes.
-
 ## Project Conventions
 
 See [`.kiro/steering/`](.kiro/steering/) for coding conventions and data model reference.
