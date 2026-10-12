@@ -44,6 +44,12 @@ android {
     ksp {
         arg("room.schemaLocation", "$projectDir/schemas")
     }
+
+    testOptions {
+        unitTests.all {
+            it.jvmArgs("-XX:+EnableDynamicAgentLoading")
+        }
+    }
 }
 
 dependencies {
@@ -77,6 +83,7 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.turbine)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

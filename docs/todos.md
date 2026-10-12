@@ -14,4 +14,4 @@ Format: `- [ ] description *(file:line if relevant)*`
 ## Features (Planned)
 
 - [ ] Calisthenics module – not yet designed or implemented.
-- [ ] Unit tests – ViewModels not yet covered.
+- [ ] More ViewModel test coverage: `TrainingPlansViewModel`, `TrainingPlanDetailViewModel`, `TrainingPlanEditorViewModel`, `StatsViewModel`.
